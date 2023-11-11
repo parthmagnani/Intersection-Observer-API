@@ -1,7 +1,12 @@
 <div class="">
   <div class="container  mt-4">
     <div *ngFor="let item of this.posts; let i = index " class="">
-      <p class="mx-2 my-2 px-2 py-14 border border-slate-500 bg-slate-500" *ngIf="i + 1 == this.posts.length" #theLastList>{{item.title}} + <b>last content</b></p>
+
+      <!-- This will render last post -->
+      <p class="mx-2 my-2 px-2 py-14 border border-slate-500 bg-slate-500" *ngIf="i + 1 == this.posts.length" #theLastList>{{item.title}} + <b>last content</b></p> 
+
+
+      <!-- Rest of posts -->
       <p class="mx-2 my-2 px-2 py-14 border border-slate-500 bg-yellow-400" *ngIf="i + 1 != this.posts.length">{{item.title}} <b>+ {{i +1}}</b></p>
 
       

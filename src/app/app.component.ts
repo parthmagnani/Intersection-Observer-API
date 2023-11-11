@@ -18,7 +18,7 @@ export class AppComponent implements AfterViewInit {
   totalPages: number = 0;
   observer: any
 
-  showSpinner: Boolean = false
+  
 
   constructor(private appService: AppService) { }
 
@@ -29,27 +29,23 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("ttheLastChild-->>", this.ttheLastChild);
     this.ttheLastChild.changes.subscribe((res: any) => {
-      console.log("change occured", res)
+      console.log("res-->>", res)
       if(res.last){
-        console.log("Trying to bind last elemeetn", res.last.nativeElement)
         this.observer?.observe(res.last.nativeElement)
       }
     })
 
   }
 
+  // api to get data
   loadPosts(): void {
-    this.showSpinner = true
     this.appService.getPosts(this.currentPage, this.itemsPerPage)
       .subscribe((response: any) => {
-        this.showSpinner =  false
-        console.log("This is response of fale spi-->>", response)
         response.data.map((res: any) => {
           this.posts.push(res)
         })
-        console.log("this.posts-->>", this.posts);
+        console.log("this.posts-->>", this.posts)
         this.totalPages = response.totalPages;
       });
   }
@@ -62,15 +58,12 @@ export class AppComponent implements AfterViewInit {
     };
     
     this.observer = new IntersectionObserver((entries) => {
-      console.log("This is entries -->>", entries)
+      console.log("scroll more")
 
       if(entries[0].isIntersecting){
-        console.log("something is intersecting")
-        console.log("this.currentPage-->>", this.currentPage)
         this.currentPage++
         this.loadPosts()
       }
     }, options);
   }
 }
-// sunt aut facere repellat provident occaecati excepturi optio reprehenderit
